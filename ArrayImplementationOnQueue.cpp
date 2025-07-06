@@ -1,93 +1,77 @@
-#include <stdio.h>
-#define SIZE 20
+#include<stdio.h>
+#define SIZE 5
 
-struct queue {
-    int item[SIZE];
-    int front;
-    int rear;
-};
+int queue[SIZE];
+	int front = -1;
+	int rear = -1;
+	int n,choice,i;
+void enqueue();
+void dequeue();
+void display();
 
-typedef struct queue qu;
+int main(){
 
-// Function to insert an element into the queue
-void insert(qu *q) {
-    int val;
-    if (q->rear == SIZE - 1) {
-        printf("Queue is full (Overflow)\n");
-    } else {
-        printf("Enter value to insert: ");
-        scanf("%d", &val);
-        if (q->front == -1) {
-            q->front = 0;
-        }
-        q->rear++;
-        q->item[q->rear] = val;
-        printf("Inserted %d\n", val);
-    }
+	printf("\n//......Array Implementation on linear Queue.......//\n");
+	
+	printf("Enter the number of elements on the Queue:\n");
+	scanf("%d",&n);
+	do{
+		printf("Choose the Option:\n");
+	
+		printf("1.Enqueue\n2.Dequeue\n3.Display\n4.Exit\n");
+		scanf("%d",&choice);
+		
+		switch(choice){
+			case 1:
+			 enqueue();
+				break;
+				case 2:
+					dequeue();
+					break;
+					case 3:
+						display();
+						break;
+						case 4:
+							printf("Exit!!\n");
+							break;
+							default:
+								printf("Enter the valid number from the given options\n");
+		}
+		
+	}while(choice!=4);
 }
-
-// Function to delete an element from the queue
-void deleteItem(qu *q) {
-    if (q->front == -1 || q->front > q->rear) {
-        printf("Queue is empty (Underflow)\n");
-    } else {
-        printf("Deleted %d\n", q->item[q->front]);
-        if (q->front == q->rear) {
-            // Queue becomes empty after deletion
-            q->front = -1;
-            q->rear = -1;
-        } else {
-            q->front++;
-        }
-    }
+void enqueue(){
+	int value;
+	if(rear == queue[SIZE]-1){
+		printf("Queue is full!/Overflow!!");
+		
+	}else {
+		if(front==-1){
+			front = 0;
+					}
+			rear++;
+			printf("Enter the vlaue:");
+			scanf("%d",&value);
+			queue[rear]=value;
+			printf("Inserted element:%d\n",value);
+		
+	}
 }
-
-// Function to display the queue elements
-void display(qu *q) {
-    if (q->front == -1 || q->front > q->rear) {
-        printf("Queue is empty\n");
-    } else {
-        printf("Queue elements: ");
-        for (int i = q->front; i <= q->rear; i++) {
-            printf("%d ", q->item[i]);
-        }
-        printf("\n");
-    }
+void dequeue(){
+	if(front == -1||front>rear){
+		printf("Queue is empty!\n");
+		
+	}else{
+		printf("Deleted element %d\n",queue[front]);
+		front++;
+	}
 }
-
-// Main function with menu
-int main() {
-    int ch;
-    qu q;
-    q.front = -1;
-    q.rear = -1;
-
-    do {
-        printf("\n--- Queue Menu ---\n");
-        printf("1. Insert\n");
-        printf("2. Delete\n");
-        printf("3. Display\n");
-        printf("4. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &ch);
-
-        switch (ch) {
-            case 1:
-                insert(&q);
-                break;
-            case 2:
-                deleteItem(&q);
-                break;
-            case 3:
-                display(&q);
-                break;
-            case 4:
-                printf("Exiting program.\n");
-                break;
-            default:
-                printf("Invalid choice! Try again.\n");
-        }
-    } while (ch != 4);
-
-    return 0;
+void display(){
+	if(front == -1||front> rear){
+		printf("Queue is empty!\n");
+		
+	}else
+	for(i = front;i<= rear;i++){
+		printf("Displayed element:%d\n",queue[i]);
+	}
 }
